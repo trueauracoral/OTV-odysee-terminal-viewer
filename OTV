@@ -6,10 +6,10 @@ echo "What do you want to look up?"
 echo "_____________________________"
 read qeury
 echo "_____________________________"
-curl -s "https://lighthouse.lbry.com/search?s=$qeury" | jq ".[].name" | grep -v "^\"@" | cut -d\" -f 2 | awk '{print $0}'
+curl -s https://lighthouse.lbry.com/search?s=$qeury | jq ".[].name" | grep -v "^\"@" | cut -d\" -f 2 | awk '{print $0}' | tr '-' ' '
 
 echo "_____________________________"
 echo "Which vid to open?"
 echo "_____________________________"
 read vid
-$player https://odysee.com/"$vid"
+$player https://odysee.com/"$(echo $vid | tr ' ' '-')"
