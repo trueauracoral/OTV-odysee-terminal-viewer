@@ -1,7 +1,10 @@
 #!/bin/sh
 
+#variables
 player=mpv
 
+#search
 qeury=$(echo | dmenu -i -p "Search Qeury: ")
 
-mpv https://odysee.com/$(curl -s "https://lighthouse.lbry.com/search?s=$(echo $qeury | tr ' ' '-')" | jq ".[].name" | grep -v "^\"@" | cut -d\" -f 2 | awk '{print $0}' | tr '-' ' ' | dmenu -i -p 'video select' -l 20 | tr ' ' '-')
+#play
+$player https://odysee.com/$(curl -s "https://lighthouse.lbry.com/search?s=$(echo $qeury | tr ' ' '-')" | jq ".[].name" | grep -v "^\"@" | cut -d\" -f 2 | awk '{print $0}' | tr '-' ' ' | dmenu -i -p 'video select' -l 20 | tr ' ' '-')
