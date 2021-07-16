@@ -1,14 +1,13 @@
-#!/bin/sh
-
 #Variables
 player=mpv
 
 #Search
 read -rp "Search Qeury: " qeury
 echo "_____________________________"
-curl -s "https://lighthouse.lbry.com/search?s=$(echo $qeury | tr ' ' '-')" | jq ".[].name" | grep -v "^\"@" | cut -d\" -f 2 | awk '{print $0}' | tr '-' ' '
-
-#Open
-echo "_____________________________"
-read -rp "Open: " vid
-$player https://odysee.com/"$(echo $vid | tr ' ' '-')"
+$player https://odysee.com/$(curl -s "https://lighthouse.lbry.com/search?s=$(echo $qeury \
+	| tr ' ' '-')" \
+	| jq ".[].name" | grep -v "^\"@" \
+	| cut -d\" -f 2 \
+	| tr '-' ' ' \
+	| fzf \
+	| tr ' ' '-')
